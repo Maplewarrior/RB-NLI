@@ -1,9 +1,9 @@
 ########## IMPORTS ##########
-from CAA_class import _CAA
-from OAA_class import _OAA
-from RBOAA_class import _RBOAA
-from TSAA_class import _TSAA
-from synthetic_data_class import _synthetic_data
+from RBOAA.CAA_class import _CAA
+from RBOAA.OAA_class import _OAA
+from RBOAA.RBOAA_class import _RBOAA
+from RBOAA.TSAA_class import _TSAA
+from RBOAA.synthetic_data_class import _synthetic_data
 
 import pandas as pd
 import numpy as np

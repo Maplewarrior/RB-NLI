@@ -5,9 +5,9 @@ import torch.nn as nn
 from torch import optim
 from timeit import default_timer as timer
 from scipy.special import softmax
-from AA_result_class import _CAA_result
+from RBOAA.AA_result_class import _CAA_result
 
-from loading_bar_class import _loading_bar
+from RBOAA.loading_bar_class import _loading_bar
 
 class _TSAA:
     
