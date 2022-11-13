@@ -1,4 +1,5 @@
 import os
+import os.path as osp
 import numpy as np
 import pandas as pd
 from RBOAA.RBOAA_class import _RBOAA
@@ -27,13 +28,18 @@ def main():
   RBOAA = _RBOAA()
   RBAA = AA()
 
-  # NLIcontext = pd.read_json(path_or_buf='data/NLI-variation-data/context-analysis/preprocessed-context-data.jsonl', lines=True)
-  # NLIsent = pd.read_json(path_or_buf='data/NLI-variation-data/sentence-pair-analysis/preprocessed-data.jsonl', lines=True)
+  #  = pd.read_json(path_or_buf=, lines=True)
+  # NLIsent = pd.read_json(path_or_buf=, lines=True)
+  # NLIcontext = 'data/NLI-variation-data/context-analysis/preprocessed-context-data.jsonl'
+  # NLIsent = 'data/NLI-variation-data/sentence-pair-analysis/preprocessed-data.jsonl'
+  # sent1 ='data/NLI-variation-data/sentence-pair-analysis/raw/batch1.csv'
+  # sent2 ='data/NLI-variation-data/sentence-pair-analysis/raw/batch2.csv'
+  # sent3 ='data/NLI-variation-data/sentence-pair-analysis/raw/batch3.csv'
+  context = 'data/NLI-variation-data/context-analysis/raw/batch1.csv'
 
-  df = pd.read_csv('data/NLI-variation-data/context-analysis/raw/batch1.csv')
-  # sent1 = pd.read_csv('data/NLI-variation-data/sentence-pair-analysis/raw/batch1.csv')
-  # sent2 = pd.read_csv('data/NLI-variation-data/sentence-pair-analysis/raw/batch2.csv')
-  # sent3 = pd.read_csv('data/NLI-variation-data/sentence-pair-analysis/raw/batch3.csv')
+  filepath = osp.join(os.getcwd(), context)
+
+  df = pd.read_csv(filepath)
 
   # Get only answer columns
   raw_data = extract_answers(df)
@@ -47,7 +53,6 @@ def main():
 
   # Number of ordinal values (bins)
   p = 7
-
   likert = convert_to_likert(raw_data.copy(), p)
   print(likert)
 
