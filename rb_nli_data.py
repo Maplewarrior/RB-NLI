@@ -40,18 +40,25 @@ def preprocess_data(df):
 def entropy(a):
   return -sum(a*np.log(a))
 
-def analysis(X):
+def analysis(X, plot=False):
   RBOAA = _RBOAA()
   RBAA = AA()
-
-  RBAA.load_data(X.T, columns=['ph'+str(i+1) for i in range(X.shape[1])])
-  RBAA.analyse(K=3, n_iter=20000, AA_type='RBOAA')
-
-  RBAA.plot('RBOAA', plot_type='PCA_scatter_plot')
-  RBAA.plot('RBOAA', plot_type='barplot', archetype_number=0)
-  RBAA.plot('RBOAA', plot_type='barplot', archetype_number=1)
-  RBAA.plot('RBOAA', plot_type='barplot', archetype_number=2)
-  RBAA.plot('RBOAA', plot_type='barplot_all')
+  if len(X.shape) > 2:
+    for i in range(X.shape[0]):
+      RBAA.load_data(X[i].T, columns=['ph'+str(i+1) for i in range(X.shape[1])])
+      RBAA.analyse(K=3, n_iter=20000, AA_type='RBOAA')
+  else:
+    RBAA.load_data(X.T, columns=['ph'+str(i+1) for i in range(X.shape[1])])
+    RBAA.analyse(K=3, n_iter=20000, AA_type='RBOAA')
+  
+  if plot:
+    RBAA.plot('RBOAA', plot_type='PCA_scatter_plot')
+    RBAA.plot('RBOAA', plot_type='barplot', archetype_number=0)
+    RBAA.plot('RBOAA', plot_type='barplot', archetype_number=1)
+    RBAA.plot('RBOAA', plot_type='barplot', archetype_number=2)
+    RBAA.plot('RBOAA', plot_type='barplot_all')
+  
+  return RBAA
 
 def main():
   #  = pd.read_json(path_or_buf=, lines=True)
@@ -72,7 +79,11 @@ def main():
   p = 7
   likert = convert_to_likert(data.copy(), p)
   
-  analysis(likert[0])
+  subset = likert[:3]
+  
+  anal = analysis(subset)
+
+  print(anal)
 
 if __name__ == '__main__':
   main()
