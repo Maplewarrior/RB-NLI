@@ -79,11 +79,15 @@ def main():
   p = 7
   likert = convert_to_likert(data.copy(), p)
   
-  subset = likert[:3]
+  num_datasets = 1
+  subset = likert[:num_datasets]
   
   anal = analysis(subset)
 
-  print(anal)
+  result1 = anal._results['RBOAA'][0]
+
+  A = result1.A
+  
 
 if __name__ == '__main__':
   main()
