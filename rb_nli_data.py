@@ -2,7 +2,7 @@ import os
 import os.path as osp
 import numpy as np
 import pandas as pd
-from RBOAA.RBOAA_class import _RBOAA
+#from RBOAA.RBOAA_class import _RBOAA
 from RBOAA.AAM import AA
 
 def extract_answers(df):
@@ -41,12 +41,13 @@ def entropy(a):
   return -sum(a*np.log(a))
 
 def analysis(X, plot=False):
-  RBOAA = _RBOAA()
   RBAA = AA()
+  # check if multiple datasets are given
   if len(X.shape) > 2:
     for i in range(X.shape[0]):
-      RBAA.load_data(X[i].T, columns=['ph'+str(i+1) for i in range(X.shape[1])])
-      RBAA.analyse(K=3, n_iter=20000, AA_type='RBOAA')
+      print(f'iter: {i}')
+      RBAA.load_data(X[i].T, columns=['ph'+str(i+1) for i in range(X.shape[2])])
+      RBAA.analyse(K=3, n_iter=15000, AA_type='RBOAA', mute=True)
   else:
     RBAA.load_data(X.T, columns=['ph'+str(i+1) for i in range(X.shape[1])])
     RBAA.analyse(K=3, n_iter=20000, AA_type='RBOAA')
@@ -83,7 +84,46 @@ def main():
   
   anal = analysis(subset)
 
-  print(anal)
+  #print(anal)
 
 if __name__ == '__main__':
   main()
+  
+  
+  
+  
+  
+
+# context = 'data/NLI-variation-data/context-analysis/raw/batch1.csv'
+
+# filepath = osp.join(os.getcwd(), context)
+
+# df = pd.read_csv(filepath)
+# data = preprocess_data(df)
+
+# # Number of ordinal values (bins)
+# p = 7
+# likert = convert_to_likert(data.copy(), p)
+
+# #subset = likert[:2]
+
+# AA_res = analysis(likert)
+
+# #%%
+
+# #AA_res.plot('RBOAA', 'PCA_scatter_plot', result_number=21)
+# #AA_res.plot('RBOAA', 'barplot_all', result_number=21)
+
+# #%%
+# A_matrices = np.empty((21, 3, 50))
+# Z_matrices = np.empty((21, 20, 3))
+
+# for i in range(21):
+#     A_matrices[i] = AA_res._results['RBOAA'][i].A
+#     Z_matrices[i] = AA_res._results['RBOAA'][i].Z 
+
+# #%%
+# np.savez('AA results/A_matrices', A_matrices, allow_picke=True)
+
+# #%%
+# np.savez('AA results/Z_matrices', Z_matrices, allow_picke=True)
