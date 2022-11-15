@@ -82,7 +82,7 @@ def plot(model, result_number, plot_type):
 def getAAMatrices(model, result_number):
     return model._results['RBOAA'][result_number].Z, model._results['RBOAA'][result_number].A
 
-    
+
         
 
 
