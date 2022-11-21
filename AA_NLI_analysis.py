@@ -67,6 +67,7 @@ converted = convert_to_likert(converted, 7)
 
 ############ Make analyses ############
 RBAA = AA()
+
 def createAnalyses(data, K, n_iter, columns, model=RBAA, n_analyses=2):
     for i in range(n_analyses):
         model.load_data(data[i].T, columns)
